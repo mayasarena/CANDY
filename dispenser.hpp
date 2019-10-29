@@ -6,8 +6,8 @@
 //  Copyright © 2019 Team20. All rights reserved.
 //
 
-#ifndef Dispensing_h
-#define Dispensing_h
+#ifndef dispenser_h
+#define dispenser_h
 
 #include "hopper.hpp"
 #include <stdio.h>
@@ -17,7 +17,7 @@ class Dispenser {
 
     private:
         int current_index;
-        std::vector<hopper> hoppers;
+        std::vector<Hopper> hoppers;
 
     public:
         Dispenser();
@@ -29,4 +29,4 @@ class Dispenser {
         hopper getHopper(int current_index);
 }
 
-#endif /* Dispensing_h */
+#endif /* Dispenser_h */
