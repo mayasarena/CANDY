@@ -26,4 +26,4 @@ class Hopper {
         int lastRefillTime;
 };
 
-#endif /* file_manager_h */
+#endif /* hopper_h */
