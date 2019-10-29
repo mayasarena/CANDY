@@ -6,27 +6,27 @@
 //  Copyright © 2019 Team20. All rights reserved.
 //
 
-#ifndef Dispensing_h
-#define Dispensing_h
+#ifndef dispenser_h
+#define dispenser_h
 
 #include "hopper.hpp"
 #include <stdio.h>
 #include <vector>
 
-class dispenser {
-    
+class Dispenser {
+
     private:
-        int currentIndex;
-        std::vector<hopper> hoppers;
-    
+        int current_index;
+        std::vector<Hopper> hoppers;
+
     public:
-        dispenser();
-        ~dispenser();
-        void dispense(int hopperID);
-        void nextIndex(int currentIndex);
+        Dispenser();
+        ~Dispenser();
+        void dispense(int hopper_id);
+        void nextIndex(int current_index);
         int getCurrentIndex();
-        void setCurrentIndex();
-        hopper getHopper(int currentIndex);
+        void setCurrentIndex(int new_index);
+        hopper getHopper(int current_index);
 }
 
-#endif /* Dispensing_h */
+#endif /* Dispenser_h */

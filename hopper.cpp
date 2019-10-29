@@ -1,6 +1,7 @@
 // Hello word!
 // Hello word!
 #include <string.h>
+#include "hopper.h"
 
 int hopperID;
 string candyType;
