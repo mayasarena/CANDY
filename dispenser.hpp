@@ -13,20 +13,20 @@
 #include <stdio.h>
 #include <vector>
 
-class dispenser {
-    
+class Dispenser {
+
     private:
-        int currentIndex;
+        int current_index;
         std::vector<hopper> hoppers;
-    
+
     public:
-        dispenser();
-        ~dispenser();
-        void dispense(int hopperID);
-        void nextIndex(int currentIndex);
+        Dispenser();
+        ~Dispenser();
+        void dispense(int hopper_id);
+        void nextIndex(int current_index);
         int getCurrentIndex();
-        void setCurrentIndex();
-        hopper getHopper(int currentIndex);
+        void setCurrentIndex(int new_index);
+        hopper getHopper(int current_index);
 }
 
 #endif /* Dispensing_h */

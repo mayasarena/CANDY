@@ -9,31 +9,31 @@
 #include "dispenser.hpp"
 #include <iostream>
 
-dispenser::dispenser(){
-    
+Dispenser::Dispenser(){
+
 }
 
-dispenser::~dispenser(){
-    
+Dispenser::~Dispenser(){
+
 }
 
-void dispenser::nextIndex(int currentIndex){
-    
+void Dispenser::nextIndex(int current_index){
+
 }
 
-int dispenser::getCurrentIndex(){
+int Dispenser::getCurrentIndex(){
     return 0;
 }
 
-void dispenser::setCurrentIndex(){
-    
+void Dispenser::setCurrentIndex(int new_index){
+
 }
 
-hopper dispenser::getHopper(int currentIndex){
-    
+hopper Dispenser::getHopper(int current_index){
+
 }
 
 int main(int argc, const char * argv[]) {
-    
-    
+
+
 }
