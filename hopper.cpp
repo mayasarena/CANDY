@@ -2,28 +2,29 @@
 // Hello word!
 #include <string.h>
 
-
 int hopperID;
 string candyType;
 int lastRefillTime;
 
 int getHopperID(){
-return hopperID;		
+return hopper::hopperID;		
 }
 
 string getCandyType(){
-return candyType;
+return hopper::candyType;
 }
 
 void setCandyType(string input){
+hopper::candyType = input;
+
 }
 
 int getLastRefillTime(){
-
+return hopper::lastRefillTime;
 
 }
 
-void setLastRefillTime(){
-
+void setLastRefillTime(int input){
+hopper::lastRefillTime = input;
 
 }
