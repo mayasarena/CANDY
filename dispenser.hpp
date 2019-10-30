@@ -17,22 +17,24 @@
 class Dispenser {
     public:
         Dispenser();
-        Dispenser(std::vector<Hopper::Hopper*> hoppers);
+        Dispenser(std::vector<Hopper*> hoppers);
         ~Dispenser();
         int getCurrentIndex();
-        Hopper::Hopper* getHopper(int index = this->current_index);
+        Hopper* getHopper(int index);
+        Hopper* getHopper();
         int setCurrentIndex(int new_index);
         int nextIndex();
-        int dispense(int hopper_id);
-        int addHopper(Hopper::Hopper* new_hopper, int index = this->size);
+        void dispense();
+        int addHopper(Hopper* new_hopper);
+        int addHopper(Hopper* new_hopper, int index);
         void removeHopper(int index);
-        void removeHopper(Hopper::Hopper* new_hopper);
+        void removeHopper(Hopper* new_hopper);
     
     private:
         int current_index;
-        std::vector<Hopper::Hopper*> hoppers;       // Vector of pointers to Hopper objects
+        std::vector<Hopper*> hoppers;       // Vector of pointers to Hopper objects
         int size;
         // missing some sort of internal clock - if we plan on implementing an expiration time
-}
+};
 
 #endif /* Dispenser_h */
