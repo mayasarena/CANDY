@@ -1,31 +1,26 @@
-// Hello word!
-// Hello word!
-#include <string.h>
 #include "hopper.h"
 
-int hopperID;
-string candyType;
-int lastRefillTime;
+using namespace std;
 
-int getHopperID() {
-    return hopper::hopperID;
+int Hopper::getHopperID() {
+    return Hopper::HopperID;
 }
 
-string getCandyType() {
-    return hopper::candyType;
+string Hopper::getCandyType() {
+    return Hopper::candyType;
 }
 
-void setCandyType(string input) {
+void Hopper::setCandyType(string input) {
     hopper::candyType = input;
 
 }
 
-int getLastRefillTime() {
-    return hopper::lastRefillTime;
+int Hopper::getLastRefillTime() {
+    return Hopper::lastRefillTime;
 
 }
 
-void setLastRefillTime(int input) {
-    hopper::lastRefillTime = input;
+void Hopper::setLastRefillTime(int input) {
+    Hopper::lastRefillTime = input;
 
 }
