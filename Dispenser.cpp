@@ -51,19 +51,32 @@ int Dispenser::getCurrentIndex() {
 
  Returns a pointer to the hopper at a given index.
  
- If no hopper index is provided, a pointer to the Hopper at the current index
- is returned.
  If the new index provided is out of range, the Dispenser will select
  the position at new_index modulus the number of hoppers in our system.
 
  @return a pointer to the Hopper at the given index (or current index)
  @throws an Out of Range exception if there are no hoppers to select
 */
-Hopper::Hopper* Dispenser::getHopper(int index = this->current_index) {
+Hopper* Dispenser::getHopper(int index) {
     if (this->size == 0) {
         throw out_of_range("Error: No hoppers available.");
     }
-    return this->hoppers[index % this->size]
+    return this->hoppers[index % this->size];
+}
+
+/**
+ getHopper
+
+ Returns a pointer to the hopper at the current index.
+
+ @return a pointer to the Hopper at the given index (or current index)
+ @throws an Out of Range exception if there are no hoppers to select
+*/
+Hopper* Dispenser::getHopper() {
+    if (this->size == 0) {
+        throw out_of_range("Error: No hoppers available.");
+    }
+    return this->getHopper(this->current_index);
 }
 
 /**
@@ -92,17 +105,19 @@ int Dispenser::setCurrentIndex(int new_index) {
  @return the id of the next candy hopper
  @throws an Out of Range exception if there are no hoppers to select
 */
-void Dispenser::nextIndex() {
+int Dispenser::nextIndex() {
     if (this->size == 0) {
         throw out_of_range("Error: No hoppers available.");
     }
     this->current_index = (this->current_index + 1) % this->size;
+    
+    return this->current_index;
 }
 
 /**
  dispense
 
- Dispenses the candy at the current Hopper.
+ Dispenses the candy at the current index.
 
  @throws an Out of Range exception if there are no hoppers to select
 */
@@ -116,13 +131,25 @@ void Dispenser::dispense() {
 /**
  addHopper
 
+ Appends a pointer to a Hopper object at the end of the hoppers vector.
+ 
+ @returns the index of the new hopper pointer
+ @throws an Out of Range exception if there are no hoppers to select
+*/
+int Dispenser::addHopper(Hopper* new_hopper) {
+    return this->addHopper(new_hopper, this->size);
+}
+
+/**
+ addHopper
+
  Adds a pointer to a Hopper in the hoppers vector.
  If an index is provided, the new hopper will be added to the position at new_index modulus the number of hoppers in our system. Otherwise, the new hopper is appended to the end.
  
  @returns the index of the new hopper pointer
  @throws an Out of Range exception if there are no hoppers to select
 */
-void Dispenser::addHopper(Hopper::Hopper* new_hopper, int index = this->size) {
+int Dispenser::addHopper(Hopper* new_hopper, int index) {
     if (this->size == 0) {
         throw out_of_range("Error: No hoppers available.");
     }
@@ -132,9 +159,9 @@ void Dispenser::addHopper(Hopper::Hopper* new_hopper, int index = this->size) {
     } else {
         this->size++;
         int insert_index = index % this->size;
-        hoppers.insert(insert_index, new_hopper);
+        hoppers.insert(hoppers.begin() + insert_index, new_hopper);
     }
-    return this->index % this->size;
+    return index % this->size;
 }
 
 /**
@@ -147,11 +174,7 @@ void Dispenser::addHopper(Hopper::Hopper* new_hopper, int index = this->size) {
  @throws an Out of Range exception if there are no hoppers to select
 */
 void Dispenser::removeHopper(int index) {
-    if (it != this->hoppers.end()) {
-        this->hoppers.erase(this->hoppers.begin() + (index % this->size));
-    } else {
-        throw invalid_argument("Error: Hopper does not exist.");
-    }
+    this->hoppers.erase(this->hoppers.begin() + (index % this->size));
 }
 
 /**
@@ -162,8 +185,12 @@ void Dispenser::removeHopper(int index) {
  @returns the index of the new hopper pointer
  @throws an Invalid Argument exception if the Hopper does not exist
 */
-void Dispenser::removeHopper(Hopper::Hopper* hopper) {
-    vector<int>::iterator it = std::find(this->hoppers.begin(), this->hoppers.end(), hopper);
-    int position = distance(this->hoppers.begin(), it)
+void Dispenser::removeHopper(Hopper* hopper) {
+    vector<Hopper*>::iterator it = std::find(this->hoppers.begin(), this->hoppers.end(), hopper);
+    int position = distance(this->hoppers.begin(), it);
     this->removeHopper(position);
+}
+
+int main(int argc, const char * argv[]) {
+    return 0;
 }
