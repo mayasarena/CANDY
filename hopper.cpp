@@ -2,10 +2,9 @@
 
 using namespace std;
 
-Hopper::Hopper(int hopper_id, string candy_name) {
+Hopper::Hopper(string candy_name) {
     this->candy_type = candy_name;
     this->last_refill_time = 0;
-    this->hopper_id = id;
 }
 
 ~Hopper::Hopper() {
@@ -22,15 +21,12 @@ string Hopper::getCandyType() {
 
 int Hopper::getLastRefillTime() {
     return this->last_refill_time;
-
 }
 
 void Hopper::setCandyType(string input) {
     this->candyType = input;
-
 }
 
 void Hopper::setLastRefillTime(int input) {
     this->last_refill_time = input;
-
 }

@@ -22,7 +22,6 @@ class Hopper {
 
     private:
         std::string candy_type;
-        int hopper_id;
         int last_refill_time;
 };
 
