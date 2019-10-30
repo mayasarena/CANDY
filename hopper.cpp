@@ -3,24 +3,24 @@
 using namespace std;
 
 int Hopper::getHopperID() {
-    return Hopper::HopperID;
+    return this->hopper_id;
 }
 
 string Hopper::getCandyType() {
-    return Hopper::candyType;
+    return this->candy_type;
 }
 
 void Hopper::setCandyType(string input) {
-    hopper::candyType = input;
+    this->candyType = input;
 
 }
 
 int Hopper::getLastRefillTime() {
-    return Hopper::lastRefillTime;
+    return this->last_refill_time;
 
 }
 
 void Hopper::setLastRefillTime(int input) {
-    Hopper::lastRefillTime = input;
+    this->last_refill_time = input;
 
 }
