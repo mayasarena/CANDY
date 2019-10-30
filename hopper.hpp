@@ -1,28 +1,31 @@
 //
-//  hopper.h
-//  Header file/prototype for the Hopper class
+//  hopper.hpp
+//  CandyTesting
 //
+//  Created by Charlie Pieczonka on 2019-10-30.
+//  Copyright © 2019 Team20. All rights reserved.
 //
 
-#ifndef hopper_h
-#define hopper_h
+#ifndef hopper_hpp
+#define hopper_hpp
+
+#include <stdio.h>
 #include <string>
 
 class Hopper {
-    public:
-        Hopper(int hopper_id);
-        ~Hopper();
-        int getHopperID();
-        int getLastRefillTime();
-        std::string getCandyType();
-        void setCandyType(std::string new_type);
-        void setLastRefillTime(int new_time);
-
-    protected:
-
-    private:
-        std::string candy_type;
-        int last_refill_time;
+public:
+    Hopper(int hopper_id);
+    ~Hopper();
+    int getHopperID();
+    int getLastRefillTime();
+    std::string getCandyType();
+    void setCandyType(std::string new_type);
+    void setLastRefillTime(int new_time);
+    
+protected:
+    
+private:
+    std::string candy_type;
+    int last_refill_time;
 };
-
-#endif /* hopper_h */
+#endif /* hopper_hpp */

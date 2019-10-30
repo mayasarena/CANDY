@@ -1,4 +1,12 @@
-#include "hopper.h"
+//
+//  hopper.cpp
+//  CandyTesting
+//
+//  Created by Charlie Pieczonka on 2019-10-30.
+//  Copyright © 2019 Team20. All rights reserved.
+//
+
+#include "hopper.hpp"
 
 using namespace std;
 

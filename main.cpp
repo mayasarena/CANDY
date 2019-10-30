@@ -8,11 +8,10 @@
 
 #include <iostream>
 #include <wiringPi.h>
+#include "dispenser.hpp"
+#include "hopper.hpp"
 
-int main(int argc, const char * argv[]) {
-<<<<<<< HEAD
-
-    wiringPiSetup();
+void pinSetup(){
     
     // 1 output set up for each LED
     pinMode(0, OUTPUT);
@@ -30,25 +29,25 @@ int main(int argc, const char * argv[]) {
     // 1 input set up for each button
     pinMode(9, INPUT); // index button
     pinMode(10, INPUT); // dispense button
+}
+
+int main(int argc, const char * argv[]) {
+    
+    wiringPiSetup();
+    CANDYInitialization();
+    pinSetup();
     
     // main program loop
-    while(true)
-    {
+    while(true){
+        
         // if index button is pressed
-        if(digitalRead(9) == true)
-        {
+        if(digitalRead(9) == true){
             //TODO: index hopper based on hopper vector, light the correct LED
         }
         
         // if dispense button is pressed
-        if(digitalRead(10) == true)
-        {
+        if(digitalRead(10) == true){
             //TODO: power the correct servo to dispense based on hopper vector
         }
     }
-=======
-    // insert code here...
-    std::cout << "Hello, World!!\n";
->>>>>>> 87dcbde0dc48b84309970003d0952a7b2332b0ed
-    return 0;
 }
