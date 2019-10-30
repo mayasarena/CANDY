@@ -1,7 +1,7 @@
 //
 //  hopper.h
 //  Header file/prototype for the Hopper class
-//
+//@authors
 //
 
 #ifndef hopper_h
