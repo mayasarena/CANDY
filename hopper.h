@@ -1,7 +1,7 @@
 //
 //  hopper.h
 //  Header file/prototype for the Hopper class
-//@authors
+//@authors Charlie,Julie,Maya,Fletcher,Marissa
 //
 
 #ifndef hopper_h
@@ -9,7 +9,7 @@
 #include <string>
 
 class Hopper {
-    public:
+    public: //public methods
         Hopper(int hopper_id);
         ~Hopper();
         int getHopperID();
@@ -20,7 +20,7 @@ class Hopper {
 
     protected:
 
-    private:
+    private: //private methods
         std::string candy_type;
         int last_refill_time;
 };
