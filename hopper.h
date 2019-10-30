@@ -10,20 +10,19 @@
 
 class Hopper {
     public:
-        Hopper();
+        Hopper(int hopper_id);
         ~Hopper();
         int getHopperID();
+        int getLastRefillTime();
         std::string getCandyType();
         void setCandyType(std::string new_type);
-        int getLastRefillTime();
         void setLastRefillTime(int new_time);
 
     protected:
 
     private:
         std::string candy_type;
-        int hopper_id;
-        int lastRefillTime;
+        int last_refill_time;
 };
 
 #endif /* hopper_h */

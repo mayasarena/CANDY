@@ -6,27 +6,33 @@
 //  Copyright © 2019 Team20. All rights reserved.
 //
 
-#ifndef Dispensing_h
-#define Dispensing_h
+#ifndef dispenser_h
+#define dispenser_h
 
 #include "hopper.hpp"
 #include <stdio.h>
 #include <vector>
+#include <iostream>
 
 class Dispenser {
-
-    private:
-        int current_index;
-        std::vector<hopper> hoppers;
-
     public:
         Dispenser();
+        Dispenser(std::vector<Hopper::Hopper*> hoppers);
         ~Dispenser();
-        void dispense(int hopper_id);
-        void nextIndex(int current_index);
         int getCurrentIndex();
-        void setCurrentIndex(int new_index);
-        hopper getHopper(int current_index);
+        Hopper::Hopper* getHopper(int index = this->current_index);
+        int setCurrentIndex(int new_index);
+        int nextIndex();
+        int dispense(int hopper_id);
+        int addHopper(Hopper::Hopper* new_hopper, int index = this->size);
+        void removeHopper(int index);
+        void removeHopper(Hopper::Hopper* new_hopper);
+    
+    private:
+        int current_index;
+        std::vector<Hopper::Hopper*> hoppers;       // Vector of pointers to Hopper objects
+        int size;
+        // missing some sort of internal clock - if we plan on implementing an expiration time
 }
 
-#endif /* Dispensing_h */
+#endif /* Dispenser_h */
