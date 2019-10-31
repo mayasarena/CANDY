@@ -7,9 +7,9 @@
 //
 
 #include <iostream>
-#include <wiringPi.h>
+#include "wiringPi.h"
 #include "dispenser.hpp"
-#include "hopper.hpp"
+#include "hopper.hpp" // "" to suppress errors, <> needed when actually testing
 
 void pinSetup(){
     
@@ -32,19 +32,18 @@ void pinSetup(){
     pinMode(10, INPUT); // dispense button
 }
 
-int buildDispenser(Dispenser * disp) {
-    Hopper * skittles_hopper = Hopper("Skittles");
-    Hopper * mm_hopper = Hopper("M&M");
-    Hopper * candy_corn_hopper = Hopper("Candy Corn");
-    *disp.addHopper(skittles_hopper);
-    *disp.addHopper(mm_hopper);
-    *disp.addHopper(candy_corn_hopper);
+void buildDispenser(Dispenser * disp) {
+    Hopper skittles_hopper = Hopper("Skittles");
+    Hopper mm_hopper = Hopper("M&M");
+    Hopper candy_corn_hopper = Hopper("Candy Corn");
+    disp->addHopper(&skittles_hopper);
+    disp->addHopper(&mm_hopper);
+    disp->addHopper(&candy_corn_hopper);
 }
 
 int main(int argc, const char * argv[]) {
     
     wiringPiSetup();
-    CANDYInitialization();
     pinSetup();
     
     Dispenser CANDY;
@@ -73,10 +72,9 @@ int main(int argc, const char * argv[]) {
         if(digitalRead(10) == true){
             //TODO: power the correct servo to dispense based on hopper vector
             
-            CANDY.openHopper(); // open hopper a specific amount
+            CANDY.openDispenser(); // open hopper a specific amount
             while(digitalRead(10) == true){} // wait until dispense button is not pressed
-            CANDY.closehopper(); // close hopper
+            CANDY.closeDispenser(); // close hopper
         }
     }
 }
-

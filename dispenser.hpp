@@ -39,5 +39,3 @@ private:
 };
 
 #endif /* dispenser_hpp */
-
-

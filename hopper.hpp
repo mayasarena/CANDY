@@ -33,4 +33,3 @@ private:
     int hopper_id;
 };
 #endif /* hopper_hpp */
-

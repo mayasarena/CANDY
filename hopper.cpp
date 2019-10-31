@@ -7,6 +7,7 @@
 //
 
 #include "hopper.hpp"
+#include <stdbool.h>
 
 using namespace std;
 
@@ -16,14 +17,14 @@ Hopper::Hopper(string candy_name) {
     this->is_multi_hopper = false;
 }
 
-Hopper::Hopper(string candy_name, boolean isMultiHopper) {
+Hopper::Hopper(string candy_name, bool isMultiHopper) {
     this->candy_type = candy_name;
     this->last_refill_time = 0;
-    this->is_multi_hopper = true;
+    this->is_multi_hopper = isMultiHopper;
 }
 
-~Hopper::Hopper() {
-
+Hopper::~Hopper() {
+    
 }
 
 int Hopper::getHopperID() {
@@ -39,13 +40,14 @@ int Hopper::getLastRefillTime() {
 }
 
 void Hopper::setCandyType(string input) {
-    this->candyType = input;
+    this->candy_type = input;
 }
 
 void Hopper::setLastRefillTime(int input) {
     this->last_refill_time = input;
 }
 
-boolean Hopper::isMultiHopper() {
+bool Hopper::isMultiHopper() {
     return this->is_multi_hopper;
 }
+
