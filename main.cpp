@@ -9,7 +9,7 @@
 #include <iostream>
 #include "wiringPi.h"
 #include "dispenser.hpp"
-#include "hopper.hpp" // "" to suppress errors, <> needed when actually testing
+#include "hopper.hpp"
 
 void pinSetup(){
     
