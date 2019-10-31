@@ -21,11 +21,12 @@ public:
     std::string getCandyType();
     void setCandyType(std::string new_type);
     void setLastRefillTime(int new_time);
-    
+
 protected:
-    
+
 private:
     std::string candy_type;
     int last_refill_time;
+    boolean is_multi_hopper;
 };
 #endif /* hopper_hpp */

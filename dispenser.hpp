@@ -24,12 +24,13 @@ public:
     Hopper* getHopper();
     int setCurrentIndex(int new_index);
     int nextIndex();
-    void dispense();
+    void openDispenser();
+    void closeDispenser();
     int addHopper(Hopper* new_hopper);
     int addHopper(Hopper* new_hopper, int index);
     void removeHopper(int index);
     void removeHopper(Hopper* new_hopper);
-    
+
 private:
     int current_index;
     std::vector<Hopper*> hoppers;       // Vector of pointers to Hopper objects

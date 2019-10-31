@@ -13,10 +13,17 @@ using namespace std;
 Hopper::Hopper(string candy_name) {
     this->candy_type = candy_name;
     this->last_refill_time = 0;
+    this->is_multi_hopper = false;
+}
+
+Hopper::Hopper(string candy_name, boolean isMultiHopper) {
+    this->candy_type = candy_name;
+    this->last_refill_time = 0;
+    this->is_multi_hopper = true;
 }
 
 ~Hopper::Hopper() {
-    
+
 }
 
 int Hopper::getHopperID() {
@@ -37,4 +44,8 @@ void Hopper::setCandyType(string input) {
 
 void Hopper::setLastRefillTime(int input) {
     this->last_refill_time = input;
+}
+
+boolean Hopper::isMultiHopper() {
+    return this->is_multi_hopper;
 }
