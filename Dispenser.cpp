@@ -12,7 +12,7 @@ using namespace std;
 
 /**
  Dispenser
-
+ 
  The constructor for the Dispenser class. Initializes all member values.
  */
 Dispenser::Dispenser() {
@@ -37,9 +37,9 @@ Dispenser::~Dispenser() {
 
 /**
  currentIndex
-
+ 
  Selects the current candy hopper in the sequence.
-
+ 
  @return the id of the current candy hopper
  */
 int Dispenser::getCurrentIndex() {
@@ -48,9 +48,9 @@ int Dispenser::getCurrentIndex() {
 
 /**
  getSize
-
+ 
  Returns the number of hoppers
-
+ 
  @return the number of hoppers
  */
 int Dispenser::getSize() {
@@ -59,12 +59,12 @@ int Dispenser::getSize() {
 
 /**
  getHopper
-
+ 
  Returns a pointer to the hopper at a given index.
-
+ 
  If the new index provided is out of range, the Dispenser will select
  the position at new_index modulus the number of hoppers in our system.
-
+ 
  @return a pointer to the Hopper at the given index (or current index)
  @throws an Out of Range exception if there are no hoppers to select
  */
@@ -77,9 +77,9 @@ Hopper* Dispenser::getHopper(int index) {
 
 /**
  getHopper
-
+ 
  Returns a pointer to the hopper at the current index.
-
+ 
  @return a pointer to the Hopper at the given index (or current index)
  @throws an Out of Range exception if there are no hoppers to select
  */
@@ -92,11 +92,11 @@ Hopper* Dispenser::getHopper() {
 
 /**
  setCurrentIndex
-
+ 
  Setter method for the current candy hopper index.
  If the new index provided is out of range, the Dispenser will select
  the position at new_index modulus the number of hoppers in our system.
-
+ 
  @return the id of the new candy hopper
  @throws an Out of Range exception if there are no hoppers to select
  */
@@ -110,9 +110,9 @@ int Dispenser::setCurrentIndex(int new_index) {
 
 /**
  nextIndex
-
+ 
  Selects the next candy hopper in the sequence.
-
+ 
  @return the id of the next candy hopper
  @throws an Out of Range exception if there are no hoppers to select
  */
@@ -121,45 +121,67 @@ int Dispenser::nextIndex() {
         throw out_of_range("Error: No hoppers available.");
     }
     this->current_index = (this->current_index + 1) % this->size;
-
+    
     return this->current_index;
 }
 
 /**
  openDispenser
-
+ 
  Dispenses the candy at the current index.
-
+ 
  @throws an Out of Range exception if there are no hoppers to select
  */
 void Dispenser::openDispenser() {
     if (this->size == 0) {
         throw out_of_range("Error: No hoppers available.");
     }
-    // TODO: Code to dispense
-
+    
+    // TODO: fix softServo errors
+    if (current_index == 4){
+        //if indexed on our multicoloured light, open all hoppers
+        for (int i = 0; i < this->size; i++){
+            //softServoWrite(i, 60);
+        }
+    }
+    else{
+        
+        // use current index's servo to open hopper
+        //softServoWrite((current_index+5), 60);
+    }
 }
 
 /**
  closeDispenser
-
+ 
  Dispenses the candy at the current index.
-
+ 
  @throws an Out of Range exception if there are no hoppers to select
  */
 void Dispenser::closeDispenser() {
     if (this->size == 0) {
         throw out_of_range("Error: No hoppers available.");
     }
-    // TODO: Code to dispense
-
+    
+    // TODO: fix softServo errors
+    if (current_index == 4){
+        //if indexed on our multicoloured light, close all hoppers
+        for (int i = 0; i < this->size; i++){
+            //softServoWrite(i, 0);
+        }
+    }
+    else{
+        
+        // use current index's servo to open hopper
+        //softServoWrite((current_index+5), 0);
+    }
 }
 
 /**
  addHopper
-
+ 
  Appends a pointer to a Hopper object at the end of the hoppers vector.
-
+ 
  @returns the index of the new hopper pointer
  @throws an Out of Range exception if there are no hoppers to select
  */
@@ -169,17 +191,14 @@ int Dispenser::addHopper(Hopper* new_hopper) {
 
 /**
  addHopper
-
+ 
  Adds a pointer to a Hopper in the hoppers vector.
  If an index is provided, the new hopper will be added to the position at new_index modulus the number of hoppers in our system. Otherwise, the new hopper is appended to the end.
-
+ 
  @returns the index of the new hopper pointer
  @throws an Out of Range exception if there are no hoppers to select
  */
 int Dispenser::addHopper(Hopper* new_hopper, int index) {
-    if (this->size == 0) {
-        throw out_of_range("Error: No hoppers available.");
-    }
     if (index == this->size) {
         hoppers.push_back(new_hopper);
         this->size++;
@@ -193,10 +212,10 @@ int Dispenser::addHopper(Hopper* new_hopper, int index) {
 
 /**
  removeHopper
-
+ 
  Removes the hopper at a given index in the hopper vector.
  The hopper at the position at new_index modulus the number of hoppers in our system will be removed.
-
+ 
  @returns the index of the new hopper pointer
  @throws an Out of Range exception if there are no hoppers to select
  */
@@ -206,9 +225,9 @@ void Dispenser::removeHopper(int index) {
 
 /**
  removeHopper
-
+ 
  Removes a given pointer in the hoppers vector.
-
+ 
  @returns the index of the new hopper pointer
  @throws an Invalid Argument exception if the Hopper does not exist
  */
@@ -217,3 +236,5 @@ void Dispenser::removeHopper(Hopper* hopper) {
     int position = distance(this->hoppers.begin(), it);
     this->removeHopper(position);
 }
+
+

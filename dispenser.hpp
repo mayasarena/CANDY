@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 class Dispenser {
 public:
