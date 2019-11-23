@@ -14,6 +14,8 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <wiringPi.h>
+#include <pigpio.h>
 
 class Dispenser {
 public:

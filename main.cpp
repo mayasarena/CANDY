@@ -14,56 +14,58 @@
 #include "hopper.hpp"
 #include <pigpio.h>
 
-typedef struct
-{
-    int gpio;
-    int minPulse;
-    int maxPulse;
-    int pw;
-    int pwInc;
-    int connected;
-} servoInf_t;
-
-
-servoInf_t servoInf[]=
-{
-    { 0, 1000, 2000, 1500,   2, 0}, /* change 0 to 1 to enable servo */
-    { 1, 1000, 2000, 1500,  -2, 0},
-    { 2, 1000, 2000, 1500,   3, 0},
-    { 3, 1000, 2000, 1500,  -3, 0},
-    { 4, 1000, 2000, 1500,   5, 0},
-    { 5, 1000, 2000, 1500,  -5, 0},
-    { 6, 1000, 2000, 1500,   7, 0},
-    { 7, 1000, 2000, 1500,  -7, 0},
-    
-    { 8, 1000, 2000, 1500,  11, 0},
-    { 9, 1000, 2000, 1500, -11, 0},
-    {10, 1000, 2000, 1500,  13, 0},
-    {11, 1000, 2000, 1500, -13, 0},
-    {12, 1000, 2000, 1500,  17, 1},
-    {13, 1000, 2000, 1500, -17, 0},
-    {14, 1000, 2000, 1500,  19, 0},
-    {15, 1000, 2000, 1500, -19, 0},
-    
-    {16, 1000, 2000, 1500,  23, 0},
-    {17, 1000, 2000, 1500, -23, 0},
-    {18, 1000, 2000, 1500,  29, 0},
-    {19, 1000, 2000, 1500, -29, 0},
-    {20, 1000, 2000, 1500,  31, 0},
-    {21, 1000, 2000, 1500, -31, 0},
-    {22, 1000, 2000, 1500,  37, 0},
-    {23, 1000, 2000, 1500, -37, 1},
-    
-    {24, 1000, 2000, 1500,  41, 0},
-    {25, 1000, 2000, 1500, -41, 0},
-    {26, 1000, 2000, 1500,  43, 0},
-    {27, 1000, 2000, 1500, -43, 0},
-    {28, 1000, 2000, 1500,  47, 0},
-    {29, 1000, 2000, 1500, -47, 0},
-    {30, 1000, 2000, 1500,  53, 0},
-    {31, 1000, 2000, 1500, -53, 0},
-};
-
+/*
+ typedef struct
+ {
+ int gpio;
+ int minPulse;
+ int maxPulse;
+ int pw;
+ int pwInc;
+ int connected;
+ } servoInf_t;
+ 
+ 
+ servoInf_t servoInf[]=
+ {
+ { 0, 1000, 2000, 1500,   2, 0}, // change 0 to 1 to enable servo
+ { 1, 1000, 2000, 1500,  -2, 0},
+ { 2, 1000, 2000, 1500,   3, 0},
+ { 3, 1000, 2000, 1500,  -3, 0},
+ { 4, 1000, 2000, 1500,   5, 0},
+ { 5, 1000, 2000, 1500,  -5, 0},
+ { 6, 1000, 2000, 1500,   7, 0},
+ { 7, 1000, 2000, 1500,  -7, 0},
+ 
+ { 8, 1000, 2000, 1500,  11, 0},
+ { 9, 1000, 2000, 1500, -11, 0},
+ {10, 1000, 2000, 1500,  13, 0},
+ {11, 1000, 2000, 1500, -13, 0},
+ {12, 1000, 2000, 1500,  17, 1},
+ {13, 1000, 2000, 1500, -17, 0},
+ {14, 1000, 2000, 1500,  19, 0},
+ {15, 1000, 2000, 1500, -19, 0},
+ 
+ {16, 1000, 2000, 1500,  23, 0},
+ {17, 1000, 2000, 1500, -23, 0},
+ {18, 1000, 2000, 1500,  29, 0},
+ {19, 1000, 2000, 1500, -29, 0},
+ {20, 1000, 2000, 1500,  31, 0},
+ {21, 1000, 2000, 1500, -31, 0},
+ {22, 1000, 2000, 1500,  37, 0},
+ {23, 1000, 2000, 1500, -37, 1},
+ 
+ {24, 1000, 2000, 1500,  41, 0},
+ {25, 1000, 2000, 1500, -41, 0},
+ {26, 1000, 2000, 1500,  43, 0},
+ {27, 1000, 2000, 1500, -43, 0},
+ {28, 1000, 2000, 1500,  47, 0},
+ {29, 1000, 2000, 1500, -47, 0},
+ {30, 1000, 2000, 1500,  53, 0},
+ {31, 1000, 2000, 1500, -53, 0},
+ };
+ 
+ */
 /* forward prototype */
 
 void pinSetup() {
@@ -133,32 +135,33 @@ void buildDispenser(Dispenser * disp) {
         selectNextHopper(disp);
     }
 }
-
-void servoTick(void * userdata)
-{
-    int s;
-    
-    for (s=0; s<sizeof(servoInf)/sizeof(servoInf_t); s++)
-    {
-        if (servoInf[s].connected) /* are we using this servo? */
-        {
-            /* move servo by its increment */
-            servoInf[s].pw += servoInf[s].pwInc;
-            
-            /* bounce back from ends */
-            if ((servoInf[s].pw < servoInf[s].minPulse) ||
-                (servoInf[s].pw > servoInf[s].maxPulse))
-            {
-                servoInf[s].pwInc = - servoInf[s].pwInc;
-                
-                servoInf[s].pw += (2 * servoInf[s].pwInc);
-            }
-            
-            /* position servo */
-            gpioServo(servoInf[s].gpio, servoInf[s].pw);
-        }
-    }
-}
+/*
+ void servoTick(void * userdata)
+ {
+ int s;
+ 
+ for (s=0; s<sizeof(servoInf)/sizeof(servoInf_t); s++)
+ {
+ if (servoInf[s].connected) // are we using this servo?
+ {
+ //move servo by its increment
+ servoInf[s].pw += servoInf[s].pwInc;
+ 
+ // bounce back from ends
+ if ((servoInf[s].pw < servoInf[s].minPulse) ||
+ (servoInf[s].pw > servoInf[s].maxPulse))
+ {
+ servoInf[s].pwInc = - servoInf[s].pwInc;
+ 
+ servoInf[s].pw += (2 * servoInf[s].pwInc);
+ }
+ 
+ // position servo
+ gpioServo(servoInf[s].gpio, servoInf[s].pw);
+ }
+ }
+ }
+ */
 
 int main(int argc, const char * argv[]) {
     
@@ -168,6 +171,8 @@ int main(int argc, const char * argv[]) {
     int MultiCount = 1;
     int pinNum = 21;
     
+    //gpioServo(servoInf[23].gpio, -200);
+    
     Dispenser CANDY;
     buildDispenser(&CANDY);
     
@@ -175,14 +180,14 @@ int main(int argc, const char * argv[]) {
     while(true){
         
         if (CANDY.getCurrentIndex() == 4){
-            std::cout << "pin num off = " << pinNum << "\n";
+            //std::cout << "pin num off = " << pinNum << "\n";
             digitalWrite(pinNum, false);
             pinNum = (MultiCount%3)+21;
-            std::cout << "pin num on = " << pinNum << "\n";
+            //std::cout << "pin num on = " << pinNum << "\n";
             digitalWrite(pinNum, true);
             MultiCount++;
-            std::cout << "multiDelay\n";
-            //delay(1000);
+            //std::cout << "multiDelay\n";
+            delay(100);
         }
         
         // If the next Hopper button is pressed: JIRA TASK
@@ -202,27 +207,27 @@ int main(int argc, const char * argv[]) {
             
             
             //*********** Temporary servo movement OPEN ****************
-            
-            if (CANDY.getCurrentIndex() == 0){
-                std::cout << "open index 0\n";
-                servoInf[23].pw += 300;
-                gpioServo(servoInf[23].gpio, servoInf[23].pw);
-            }
-            
-            if (CANDY.getCurrentIndex() == 1){
-                std::cout << "open index 1\n";
-                servoInf[12].pw += 300;
-                gpioServo(servoInf[12].gpio, servoInf[12].pw);
-            }
-            
-            if (CANDY.getCurrentIndex() == 4){
-                std::cout << "open index 4\n";
-                servoInf[23].pw += 300;
-                gpioServo(servoInf[23].gpio, servoInf[23].pw);
-                servoInf[12].pw += 300;
-                gpioServo(servoInf[12].gpio, servoInf[12].pw);
-            }
-            
+            /*
+             if (CANDY.getCurrentIndex() == 0){
+             std::cout << "open index 0\n";
+             servoInf[23].pw -= 940;
+             gpioServo(servoInf[23].gpio, servoInf[23].pw);
+             }
+             
+             if (CANDY.getCurrentIndex() == 1){
+             std::cout << "open index 1\n";
+             servoInf[12].pw -= 960;
+             gpioServo(servoInf[12].gpio, servoInf[12].pw);
+             }
+             
+             if (CANDY.getCurrentIndex() == 4){
+             std::cout << "open index 4\n";
+             servoInf[23].pw -= 300;
+             gpioServo(servoInf[23].gpio, servoInf[23].pw);
+             servoInf[12].pw -= 300;
+             gpioServo(servoInf[12].gpio, servoInf[12].pw);
+             }
+             */
             // *********************************************************
             
             
@@ -238,27 +243,27 @@ int main(int argc, const char * argv[]) {
             CANDY.closeDispenser(); // Close hopper once button has been lifted
             
             //*********** Temporary servo movement CLOSE ****************
-            
-            if (CANDY.getCurrentIndex() == 0){
-                std::cout << "close index 0\n";
-                servoInf[23].pw -= 300;
-                gpioServo(servoInf[23].gpio, servoInf[23].pw);
-            }
-            
-            if (CANDY.getCurrentIndex() == 1){
-                std::cout << "close index 1\n";
-                servoInf[12].pw -= 300;
-                gpioServo(servoInf[12].gpio, servoInf[12].pw);
-            }
-            
-            if (CANDY.getCurrentIndex() == 4){
-                std::cout << "open index 4\n";
-                servoInf[23].pw -= 300;
-                gpioServo(servoInf[23].gpio, servoInf[23].pw);
-                servoInf[12].pw -= 300;
-                gpioServo(servoInf[12].gpio, servoInf[12].pw);
-            }
-            
+            /*
+             if (CANDY.getCurrentIndex() == 0){
+             std::cout << "close index 0\n";
+             servoInf[23].pw += 940;
+             gpioServo(servoInf[23].gpio, servoInf[23].pw);
+             }
+             
+             if (CANDY.getCurrentIndex() == 1){
+             std::cout << "close index 1\n";
+             servoInf[12].pw += 960;
+             gpioServo(servoInf[12].gpio, servoInf[12].pw);
+             }
+             
+             if (CANDY.getCurrentIndex() == 4){
+             std::cout << "open index 4\n";
+             servoInf[23].pw += 300;
+             gpioServo(servoInf[23].gpio, servoInf[23].pw);
+             servoInf[12].pw += 300;
+             gpioServo(servoInf[12].gpio, servoInf[12].pw);
+             }
+             */
             // ***
             
             // NOTE: Once our hardware is properly set up, we'll run this while loop until the dispense button has been lifted.
@@ -271,3 +276,4 @@ int main(int argc, const char * argv[]) {
     }
     return 0;
 }
+
