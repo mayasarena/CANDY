@@ -237,4 +237,3 @@ void Dispenser::removeHopper(Hopper* hopper) {
     this->removeHopper(position);
 }
 
-

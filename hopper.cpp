@@ -51,3 +51,4 @@ bool Hopper::isMultiHopper() {
     return this->is_multi_hopper;
 }
 
+
