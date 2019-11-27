@@ -1,9 +1,5 @@
 //
-//  hopper.hpp
-//  CandyTesting
-//
-//  Created by Charlie Pieczonka on 2019-10-30.
-//  Copyright © 2019 Team20. All rights reserved.
+// @authors Charlie P, Julie Winer, Fletcher,Marissa
 //
 
 #ifndef hopper_hpp

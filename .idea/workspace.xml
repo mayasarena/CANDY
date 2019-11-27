@@ -29,6 +29,11 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -52,7 +57,7 @@
       <option name="presentableId" value="Default" />
       <updated>1572311659476</updated>
       <workItem from="1572311661456" duration="1045000" />
-      <workItem from="1572469419227" duration="1224000" />
+      <workItem from="1572469419227" duration="1867000" />
     </task>
     <servers />
   </component>
