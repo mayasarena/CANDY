@@ -1,7 +1,10 @@
-//
-// @authors Charlie P, Julie Winer, Fletcher,Marissa
-//
-
+/**
+ * @file hopper.hpp
+ * @author Charlie, Marissa, Maya, Fletcher, and Julie
+ * @date 28 Nov 2019
+ * @brief Header file for hopper class
+ *
+ */
 #ifndef hopper_hpp
 #define hopper_hpp
 
@@ -23,10 +26,10 @@ public:
 protected:
     
 private:
-    std::string candy_type;
-    int last_refill_time;
-    bool is_multi_hopper;
-    int hopper_id;
+    std::string candy_type; ///< type of candy in the hopper
+    int last_refill_time; ///< time the hopper was last refilled
+    bool is_multi_hopper; ///< true if multi hopper, false elsewise
+    int hopper_id; ///< unique ID for a hopper
 };
 #endif /* hopper_hpp */
 

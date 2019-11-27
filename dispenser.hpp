@@ -1,10 +1,10 @@
-//
-//  dispenser.hpp
-//  CandyTesting
-//
-//  Created by Charlie Pieczonka on 2019-10-30.
-//  Copyright © 2019 Team20. All rights reserved.
-//
+/**
+ * @file hopper.cpp
+ * @author Charlie, Marissa, Maya, Fletcher, and Julie
+ * @date 28 Nov 2019
+ * @brief Header file for dispenser class
+ *
+ */
 
 #ifndef dispenser_hpp
 #define dispenser_hpp
@@ -36,10 +36,9 @@ public:
     void removeHopper(Hopper* new_hopper);
     
 private:
-    int current_index;
-    std::vector<Hopper*> hoppers;       // Vector of pointers to Hopper objects
-    int size;
-    // missing some sort of internal clock - if we plan on implementing an expiration time
+    int current_index; ///< integer index number
+    std::vector<Hopper*> hoppers; ///< Vector of pointers to Hopper objects
+    int size; ///< number of hoppers in the dispenser
 };
 
 #endif /* dispenser_hpp */

@@ -1,15 +1,13 @@
 /**
  * @file main.cpp
  * @author Charlie, Marissa, Maya, Fletcher, and Julie
- * @date 27 Nov 2019
+ * @date 28 Nov 2019
  * @brief File containing the main function for the entire program.
  *
  */
 
 #include <iostream>
 #include <wiringPi.h>
-#include <softServo.h>
-#include <softPwm.h>
 #include "dispenser.hpp"
 #include "hopper.hpp"
 #include <pigpio.h>
