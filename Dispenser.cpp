@@ -11,9 +11,8 @@
 using namespace std;
 
 /**
- Dispenser
- 
- The constructor for the Dispenser class. Initializes all member values.
+ * Dispenser
+ * @brief The constructor for the Dispenser class. Initializes all member values.
  */
 Dispenser::Dispenser() {
     this->current_index = 0;
@@ -22,8 +21,7 @@ Dispenser::Dispenser() {
     
 }
 
-typedef struct
-{
+typedef struct {
     int gpio;
     int minPulse;
     int maxPulse;
@@ -55,9 +53,9 @@ servoInf_t servoInf[]=
     {16, 1000, 2000, 1500,  23, 0},
     {17, 1000, 2000, 1500, -23, 0},
     {18, 1000, 2000, 1500,  29, 0},
-    {19, 1000, 2000, 1500, -29, 0},
+    {19, 1000, 2000, 1500, -29, 1},
     {20, 1000, 2000, 1500,  31, 0},
-    {21, 1000, 2000, 1500, -31, 0},
+    {21, 1000, 2000, 1500, -31, 1},
     {22, 1000, 2000, 1500,  37, 0},
     {23, 1000, 2000, 1500, -37, 1},
     
@@ -98,7 +96,7 @@ int Dispenser::getCurrentIndex() {
 }
 
 /**
- getSize
+ * getSize
  
  Returns the number of hoppers
  
@@ -203,12 +201,28 @@ void Dispenser::openDispenser() {
         gpioServo(servoInf[12].gpio, servoInf[12].pw);
     }
     
+    if (current_index == 2){
+        std::cout << "open index 0\n";
+        servoInf[21].pw -= 940;
+        gpioServo(servoInf[21].gpio, servoInf[21].pw);
+    }
+    
+    if (current_index == 3){
+        std::cout << "open index 0\n";
+        servoInf[19].pw -= 940;
+        gpioServo(servoInf[19].gpio, servoInf[19].pw);
+    }
+    
     if (current_index == 4){
         std::cout << "open index 4\n";
         servoInf[23].pw -= 300;
         gpioServo(servoInf[23].gpio, servoInf[23].pw);
         servoInf[12].pw -= 300;
         gpioServo(servoInf[12].gpio, servoInf[12].pw);
+        servoInf[21].pw -= 940;
+        gpioServo(servoInf[21].gpio, servoInf[21].pw);
+        servoInf[19].pw -= 940;
+        gpioServo(servoInf[19].gpio, servoInf[19].pw);
     }
 }
 
@@ -239,12 +253,28 @@ void Dispenser::closeDispenser() {
         gpioServo(servoInf[12].gpio, servoInf[12].pw);
     }
     
+    if (current_index == 2){
+        std::cout << "open index 0\n";
+        servoInf[21].pw += 940;
+        gpioServo(servoInf[21].gpio, servoInf[21].pw);
+    }
+    
+    if (current_index == 3){
+        std::cout << "open index 0\n";
+        servoInf[19].pw += 940;
+        gpioServo(servoInf[19].gpio, servoInf[19].pw);
+    }
+    
     if (current_index == 4){
         std::cout << "open index 4\n";
         servoInf[23].pw += 300;
         gpioServo(servoInf[23].gpio, servoInf[23].pw);
         servoInf[12].pw += 300;
         gpioServo(servoInf[12].gpio, servoInf[12].pw);
+        servoInf[21].pw += 940;
+        gpioServo(servoInf[21].gpio, servoInf[21].pw);
+        servoInf[19].pw += 940;
+        gpioServo(servoInf[19].gpio, servoInf[19].pw);
     }
 }
 
