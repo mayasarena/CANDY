@@ -24,7 +24,56 @@ using namespace std;
 Dispenser::Dispenser() {
     this->current_index = 0;
     this->size = 0;
+    gpioInitialise();
 }
+
+typedef struct {
+    int gpio;
+    int minPulse;
+    int maxPulse;
+    int pw;
+    int pwInc;
+    int connected;
+} servoInf_t;
+
+servoInf_t servoInf[]=
+{
+    { 0, 1000, 2000, 1500,   2, 0}, /* change 0 to 1 to enable servo */
+    { 1, 1000, 2000, 1500,  -2, 0},
+    { 2, 1000, 2000, 1500,   3, 0},
+    { 3, 1000, 2000, 1500,  -3, 0},
+    { 4, 1000, 2000, 1500,   5, 0},
+    { 5, 1000, 2000, 1500,  -5, 0},
+    { 6, 1000, 2000, 1500,   7, 0},
+    { 7, 1000, 2000, 1500,  -7, 0},
+    
+    { 8, 1000, 2000, 1500,  11, 0},
+    { 9, 1000, 2000, 1500, -11, 0},
+    {10, 1000, 2000, 1500,  13, 0},
+    {11, 1000, 2000, 1500, -13, 0},
+    {12, 1000, 2000, 1500,  17, 1},
+    {13, 1000, 2000, 1500, -17, 0},
+    {14, 1000, 2000, 1500,  19, 0},
+    {15, 1000, 2000, 1500, -19, 0},
+    
+    {16, 1000, 2000, 1500,  23, 0},
+    {17, 1000, 2000, 1500, -23, 0},
+    {18, 1000, 2000, 1500,  29, 0},
+    {19, 1000, 2000, 1500, -29, 1},
+    {20, 1000, 2000, 1500,  31, 0},
+    {21, 1000, 2000, 1500, -31, 1},
+    {22, 1000, 2000, 1500,  37, 0},
+    {23, 1000, 2000, 1500, -37, 1},
+    
+    {24, 1000, 2000, 1500,  41, 0},
+    {25, 1000, 2000, 1500, -41, 0},
+    {26, 1000, 2000, 1500,  43, 0},
+    {27, 1000, 2000, 1500, -43, 0},
+    {28, 1000, 2000, 1500,  47, 0},
+    {29, 1000, 2000, 1500, -47, 0},
+    {30, 1000, 2000, 1500,  53, 0},
+    {31, 1000, 2000, 1500, -53, 0},
+};
 
 /**
  * @brief Dispenser destructor
@@ -144,16 +193,42 @@ void Dispenser::openDispenser() {
         throw out_of_range("Error: No hoppers available.");
     }
     
-    if (current_index == 4){
-        //if indexed on our multicoloured light, open all hoppers
-        for (int i = 0; i < this->size; i++){
-            softServoWrite(i, 60);
-        }
+    std::cout << "OpenDispenser() has been reached\n";
+    
+    if (current_index == 0){
+        std::cout << "open index 0\n";
+        servoInf[23].pw -= 940;
+        gpioServo(servoInf[23].gpio, servoInf[23].pw);
     }
-    else{
-        
-        // use current index's servo to open hopper
-        softServoWrite((current_index+5), 60);
+    
+    if (current_index == 1){
+        std::cout << "open index 1\n";
+        servoInf[12].pw -= 960;
+        gpioServo(servoInf[12].gpio, servoInf[12].pw);
+    }
+    
+    if (current_index == 2){
+        std::cout << "open index 0\n";
+        servoInf[21].pw -= 940;
+        gpioServo(servoInf[21].gpio, servoInf[21].pw);
+    }
+    
+    if (current_index == 3){
+        std::cout << "open index 0\n";
+        servoInf[19].pw -= 940;
+        gpioServo(servoInf[19].gpio, servoInf[19].pw);
+    }
+    
+    if (current_index == 4){
+        std::cout << "open index 4\n";
+        servoInf[23].pw -= 300;
+        gpioServo(servoInf[23].gpio, servoInf[23].pw);
+        servoInf[12].pw -= 300;
+        gpioServo(servoInf[12].gpio, servoInf[12].pw);
+        servoInf[21].pw -= 940;
+        gpioServo(servoInf[21].gpio, servoInf[21].pw);
+        servoInf[19].pw -= 940;
+        gpioServo(servoInf[19].gpio, servoInf[19].pw);
     }
 }
 
@@ -172,18 +247,46 @@ void Dispenser::closeDispenser() {
         throw out_of_range("Error: No hoppers available.");
     }
     
-    if (current_index == 4){
-        //if indexed on our multicoloured light, close all hoppers
-        for (int i = 0; i < this->size; i++){
-            softServoWrite(i, 0);
-        }
+    std::cout << "CloseDispenser() has been reached\n";
+    
+    // TODO: fix softServo errors
+    if (current_index == 0){
+        std::cout << "close index 0\n";
+        servoInf[23].pw += 940;
+        gpioServo(servoInf[23].gpio, servoInf[23].pw);
     }
-    else{
-        
-        // use current index's servo to open hopper
-        softServoWrite((current_index+5), 0);
+    
+    if (current_index == 1){
+        std::cout << "close index 1\n";
+        servoInf[12].pw += 960;
+        gpioServo(servoInf[12].gpio, servoInf[12].pw);
+    }
+    
+    if (current_index == 2){
+        std::cout << "open index 0\n";
+        servoInf[21].pw += 940;
+        gpioServo(servoInf[21].gpio, servoInf[21].pw);
+    }
+    
+    if (current_index == 3){
+        std::cout << "open index 0\n";
+        servoInf[19].pw += 940;
+        gpioServo(servoInf[19].gpio, servoInf[19].pw);
+    }
+    
+    if (current_index == 4){
+        std::cout << "open index 4\n";
+        servoInf[23].pw += 300;
+        gpioServo(servoInf[23].gpio, servoInf[23].pw);
+        servoInf[12].pw += 300;
+        gpioServo(servoInf[12].gpio, servoInf[12].pw);
+        servoInf[21].pw += 940;
+        gpioServo(servoInf[21].gpio, servoInf[21].pw);
+        servoInf[19].pw += 940;
+        gpioServo(servoInf[19].gpio, servoInf[19].pw);
     }
 }
+
 
 /**
  * @brief Appends a pointer to a Hopper object at the end of the hoppers vector.
