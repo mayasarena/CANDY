@@ -117,7 +117,7 @@ int main(int argc, const char * argv[]) {
     // Main program loop
     while (true) {
         // If current index points to the multi-coloured light
-        if (CANDY.getCurrentIndex() == disp->getSize() - 1) {
+        if (CANDY.getCurrentIndex() == CANDY.getSize() - 1) {
             digitalWrite(pin_num, false);
             // Change the colour of the multi-colour light
             pin_num = (multi_count % 3) + 21;

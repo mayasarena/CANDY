@@ -10,6 +10,8 @@
 #define dispenser_hpp
 
 #include "hopper.hpp"
+#include "wiringPi.h"
+#include "softServo.h"
 #include <stdio.h>
 #include <vector>
 #include <iostream>
@@ -34,7 +36,7 @@ public:
     int addHopper(Hopper* new_hopper, int index);
     void removeHopper(int index);
     void removeHopper(Hopper* new_hopper);
-    
+
 private:
     int current_index; ///< integer index number
     std::vector<Hopper*> hoppers; ///< Vector of pointers to Hopper objects
@@ -42,4 +44,3 @@ private:
 };
 
 #endif /* dispenser_hpp */
-
